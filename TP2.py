@@ -23,8 +23,21 @@ def rotateImage(image, angleInDegrees):
     outImg = cv2.warpAffine(image, rot, (b_w, b_h), flags=cv2.INTER_LINEAR)
     return outImg
 
+#----------------parametros de calibração obtidos com o toolkit:---------------------------------------------------------
+# Calibration results (with uncertainties):
+#
+# Focal Length:          fc = [ 568.45087   563.55473 ] ± [ 22.45520   20.58540 ]
+# Principal point:       cc = [ 312.86352   207.41694 ] ± [ 8.63367   17.37837 ]
+# Skew:             alpha_c = [ 0.00000 ] ± [ 0.00000  ]   => angle of pixel axes = 90.00000 ± 0.00000 degrees
+# Distortion:            kc = [ 0.10977   -0.29957   -0.00915   -0.00096  0.00000 ] ± [ 0.02947   0.10084   0.00685   0.00569  0.00000 ]
+# Pixel error:          err = [ 0.23016   0.28244 ]
+#
+# Note: The numerical errors are approximately three times the standard deviations (for reference).
+#------------------------------------------------------------------------------------------------------------------------
 
 
+
+#---------------------------MAIN CODE-----------------------------------------------------------------------------------
 
 img = cv2.imread('alvo.jpg', 0) #Lê alvo
 crop_img = img[:, 3:-4]  #transforma alvo em figura quadrada
@@ -58,24 +71,24 @@ while (1):
     ret, frame = cap.read()
     if not ret: break  #se chegar no final sai da rotina
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    gray = np.float32(gray)
+    #gray = np.float32(gray)
     original = np.copy(frame)
+    mask1= cv2.Canny(frame,100,250)
+    imageContours, contours =  cv2.findContours(mask1,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     cv2.imshow('Video', frame)
+
 
     k = cv2.waitKey(5) & 0xFF   #se pressionar esc sai da rotina
     if k == 27:
         break
-    if k == 32:
-        time.sleep(5)
-        framesCalibrar.append(cap.get(cv2.CAP_PROP_POS_FRAMES))
-        print (cap.get(cv2.CAP_PROP_POS_FRAMES))
 
-    frames=[277, 472, 599, 753, 942, 1125, 1448, 1815]
+    approx=[]
+    for i in imageContours:
+        if cv2.isContourConvex(i):
+            approx.append(i)
 
-    if contaframes in frames:
-        cv2.imwrite('frame%d.jpg' % contaframes, frame)
-
-
+    frame = cv2.drawContours(frame, imageContours, -1, (0, 255, 0), 1)
+    cv2.imshow('Contornos', frame)
 
 cap.release()
 
