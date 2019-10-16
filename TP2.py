@@ -5,9 +5,9 @@ import math
 import numpy as np
 import time
 import pygame
-import OpenGL.GL
-import OpenGL.GLUT
-import OpenGL.GLU
+import OpenGL.GL as gl
+import OpenGL.GLUT as glut
+import OpenGL.GLU as glu
 
 def espelha(i, erro1m, erro2m, erro3m, erro4m):
     if erro1m < 10500 or erro3m < 10500:
@@ -48,10 +48,11 @@ def  compara2(imageA, imageB):
 
 def retorna_final(homografias,gray,final):
 # HOMOGRAFIA------------------------------------------
+    pontosPnP = []
     for i in homografias:
         # value1=i
         # aux1=np.array([[i[0][1],i[0][0]],[i[1][1],i[1][0]],[i[2][1],i[2][0]],[i[3][1],i[3][0]]])
-        print(i)
+        # print(i)
         aux1 = np.array([[i[0][1], i[0][0]], [i[3][1], i[3][0]], [i[2][1], i[2][0]], [i[1][1], i[1][0]]])
         aux2 = np.array([[0, 0], [0, tamXalvo], [tamYalvo, tamXalvo], [tamYalvo, 0]])
         h, status = cv2.findHomography(aux1, aux2)
@@ -82,21 +83,25 @@ def retorna_final(homografias,gray,final):
                 final = cv2.line(final, (i[3][1], i[3][0]), (i[2][1], i[2][0]), (0, 255, 0), 2)
                 final = cv2.line(final, (i[2][1], i[2][0]), (i[1][1], i[1][0]), (0, 0, 255), 2)
                 final = cv2.line(final, (i[1][1], i[1][0]), (i[0][1], i[0][0]), (255, 255, 0), 2)
+                pontosPnP.append([[i[0][1],i[0][0]],[i[3][1], i[3][0]],[i[2][1], i[2][0]],[i[1][1], i[1][0]]])
             if erro2 <= 10500:
                 final = cv2.line(final, (i[0][1], i[0][0]), (i[3][1], i[3][0]), (255, 255, 0), 2)
                 final = cv2.line(final, (i[3][1], i[3][0]), (i[2][1], i[2][0]), (255, 0, 0), 2)
                 final = cv2.line(final, (i[2][1], i[2][0]), (i[1][1], i[1][0]), (0, 255, 0), 2)
                 final = cv2.line(final, (i[1][1], i[1][0]), (i[0][1], i[0][0]), (0, 0, 255), 2)
+                pontosPnP.append([[i[1][1], i[1][0]],[i[0][1],i[0][0]],[i[3][1], i[3][0]],[i[2][1], i[2][0]]])
             if erro3 <= 10500:
                 final = cv2.line(final, (i[0][1], i[0][0]), (i[3][1], i[3][0]), (0, 0, 255), 2)
                 final = cv2.line(final, (i[3][1], i[3][0]), (i[2][1], i[2][0]), (255, 255, 0), 2)
                 final = cv2.line(final, (i[2][1], i[2][0]), (i[1][1], i[1][0]), (255, 0, 0), 2)
                 final = cv2.line(final, (i[1][1], i[1][0]), (i[0][1], i[0][0]), (0, 255, 0), 2)
+                pontosPnP.append([[i[2][1], i[2][0]],[i[1][1], i[1][0]],[i[0][1],i[0][0]],[i[3][1], i[3][0]]])
             if erro4 <= 10500:
                 final = cv2.line(final, (i[0][1], i[0][0]), (i[3][1], i[3][0]), (0, 255, 0), 2)
                 final = cv2.line(final, (i[3][1], i[3][0]), (i[2][1], i[2][0]), (0, 0, 255), 2)
                 final = cv2.line(final, (i[2][1], i[2][0]), (i[1][1], i[1][0]), (255, 255, 0), 2)
                 final = cv2.line(final, (i[1][1], i[1][0]), (i[0][1], i[0][0]), (255, 0, 0), 2)
+                pontosPnP.append([[i[3][1], i[3][0]],[i[2][1], i[2][0]],[i[1][1], i[1][0]],[i[0][1],i[0][0]]])
         else:
             erro1 = compara2(im_dst, alvo1)
             erro2 = compara2(im_dst, alvo2)
@@ -123,7 +128,7 @@ def retorna_final(homografias,gray,final):
                 final = cv2.line(final, (i[3][1], i[3][0]), (i[2][1], i[2][0]), (0, 0, 255), 2)
                 final = cv2.line(final, (i[2][1], i[2][0]), (i[1][1], i[1][0]), (255, 255, 0), 2)
                 final = cv2.line(final, (i[1][1], i[1][0]), (i[0][1], i[0][0]), (255, 0, 0), 2)
-    return final
+    return final, pontosPnP
 
 
 
@@ -162,6 +167,15 @@ def find_rectangle(approx,original,homografias):
             # print(approx)
     return approx,original, pontos
 
+def functionPnP(pontospnp, objectPoints, cameraMatrix, distCoeffs):
+    matrizRotacao = []
+    matrizTanslacao = []
+    for i in pontospnp:
+        imagePoints = np.asarray(i)
+        ret, rvec, tvec, = cv2.solvePnP(objectPoints.astype(float), imagePoints.astype(float), cameraMatrix, distCoeffs)
+        matrizRotacao.append(rvec)
+        matrizTanslacao.append(tvec)
+    return matrizRotacao, matrizTanslacao
 
 #----------------parametros de calibração obtidos com o toolkit:---------------------------------------------------------
 # Calibration results (with uncertainties):
@@ -174,7 +188,8 @@ def find_rectangle(approx,original,homografias):
 #
 # Note: The numerical errors are approximately three times the standard deviations (for reference).
 #------------------------------------------------------------------------------------------------------------------------
-
+cameraMatrix= np.array([[568.45087,0,312.86352],[0,563.55473,207.41694],[0,0,1]])
+distCoeffs=np.array([ 0.10977 ,  -0.29957 ,  -0.00915  , -0.00096 , 0.00000 ])
 
 
 #---------------------------MAIN CODE-----------------------------------------------------------------------------------
@@ -223,7 +238,7 @@ while (1):
     original = np.copy(frame)
     final = np.copy(original)
 
-    mask1= cv2.Canny(frame,180,300)
+    mask1= cv2.Canny(frame,150,280)
     imageContours, contours =  cv2.findContours(mask1,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     # cv2.imshow('Video', frame)
 
@@ -260,7 +275,13 @@ while (1):
             j[1]=j[0]
             j[0]=guarda
 
-    final = retorna_final(quinas, gray, final)
+    final, pontospnp = retorna_final(quinas, gray, final)
+
+    objectPoints=np.array([[-5,-5,0],[5,-5,0],[-5,5,0],[5,5,0]])
+    matRotacao=[]
+    matTranslacao=[]
+
+    matRotacao,matTranslacao = functionPnP(pontospnp, objectPoints, cameraMatrix, distCoeffs)
 
 
 
