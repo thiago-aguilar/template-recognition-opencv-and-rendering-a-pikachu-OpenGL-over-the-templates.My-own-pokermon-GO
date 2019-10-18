@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0d7567d6-eccc-4e99-99c9-23c406e2a556" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="TP2" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1RwZMjsjhL0DcUyW9OjGPwN2ABf" />
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/pikachu_obj" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.TP2">
+    <configuration name="TP2" type="PythonConfigurationType" factoryName="Python">
+      <module name="TP2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TP2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="TP2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda3/envs/ambiente/bin/python" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="openGL" type="PythonConfigurationType" factoryName="Python">
+      <module name="TP2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/openGL.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0d7567d6-eccc-4e99-99c9-23c406e2a556" name="Default Changelist" comment="" />
+      <created>1570580072046</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1570580072046</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py</url>
+          <line>13</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="imageContours" language="Python" />
+        <watch expression="quinas" language="Python" />
+        <watch expression="FRAME" language="Python" />
+        <watch expression="frame" language="Python" />
+        <watch expression="x" language="Python" />
+        <watch expression="x" language="Python" />
+        <watch expression="enxerga" language="Python" />
+        <watch expression="i" language="Python" />
+        <watch expression="contornos" language="Python" />
+        <watch expression="areas" language="Python" />
+        <watch expression="approx" language="Python" />
+        <watch expression="approx" language="Python" />
+        <watch expression="approx" language="Python" />
+        <watch expression="approx" language="Python" />
+        <watch expression="approx" language="Python" />
+        <watch expression="approx" language="Python" />
+        <watch expression="approx" language="Python" />
+        <watch expression="approx" language="Python" />
+        <watch expression="i" language="Python" />
+        <watch expression="homografias" language="Python" />
+        <watch expression="quinas" language="Python" />
+        <watch expression="quinas[0]" language="Python" />
+        <watch expression="quinas[0][0]" language="Python" />
+        <watch expression="quinas[0][0][0]" language="Python" />
+        <watch expression="quinas" language="Python" />
+        <watch expression="quinas" language="Python" />
+        <watch expression="quinas" language="Python" />
+        <watch expression="quinas[0]" language="Python" />
+        <watch expression="quinas[0][0]" language="Python" />
+        <watch expression="quinas[0][0][0]" language="Python" />
+        <watch expression="i" language="Python" />
+        <watch expression="quinas" language="Python" />
+        <watch expression="i" language="Python" />
+        <watch expression="quinas" language="Python" />
+        <watch expression="quinas[1][0][0]" language="Python" />
+        <watch expression="[[quinas[0][0][0],quinas[0][0][1]],[quinas[1][0][0], quinas[1][0][1]],[quinas[2][0][0], quinas[2][0][1]],[quinas[3][0][0], quinas[3][0][1]]]" language="Python" />
+        <watch expression="homografias" language="Python" />
+        <watch expression="i" language="Python" />
+        <watch expression="homografias" language="Python" />
+        <watch expression="homografias" language="Python" />
+        <watch expression="im_dst" language="Python" />
+        <watch expression="approx" language="Python" />
+        <watch expression="len(approx)" language="Python" />
+        <watch expression="approx" language="Python" />
+        <watch expression="approx" language="Python" />
+        <watch expression="approx" language="Python" />
+        <watch expression="approx[0]" language="Python" />
+        <watch expression="approx[0][0]" language="Python" />
+        <watch expression="quinas" language="Python" />
+        <watch expression="i" language="Python" />
+        <watch expression="i" language="Python" />
+        <watch expression="erro1m" language="Python" />
+        <watch expression="erro1m" language="Python" />
+        <watch expression="pnp" language="Python" />
+        <watch expression="pontospnp" language="Python" />
+        <watch expression="i" language="Python" />
+        <watch expression="imagePoints.size()" language="Python" />
+        <watch expression="len(imagePoints)" language="Python" />
+        <watch expression="len(ObjectPoints)" language="Python" />
+        <watch expression="len(i)" language="Python" />
+        <watch expression="imagePoints.__sizeof__()" language="Python" />
+        <watch expression="imagePoints[1]" language="Python" />
+        <watch expression="i[1]" language="Python" />
+        <watch expression="objectPoints" language="Python" />
+        <watch expression="pontospnp" language="Python" />
+        <watch expression="pontospnp" language="Python" />
+        <watch expression="i" language="Python" />
+        <watch expression="objectPoints" language="Python" />
+        <watch expression="imagePoints" language="Python" />
+        <watch expression="objectPoints" language="Python" />
+        <watch expression="imagePoints" language="Python" />
+        <watch expression="imagePoints" language="Python" />
+        <watch expression="pontospnp" language="Python" />
+        <watch expression="pontospnp" language="Python" />
+        <watch expression="imagePoints" language="Python" />
+        <watch expression="objectPoints" language="Python" />
+        <watch expression="objectPoints" language="Python" />
+        <watch expression="imagePoints" language="Python" />
+        <watch expression="imagePoints[1]" language="Python" />
+        <watch expression="objectPoints" language="Python" />
+        <watch expression="imagePoints.astype(float)" language="Python" />
+        <watch expression="ret" language="Python" />
+        <watch expression="rvec" language="Python" />
+        <watch expression="tvec" language="Python" />
+        <watch expression="matRotacao" language="Python" />
+        <watch expression="rvec" language="Python" />
+        <watch expression="matTranslacao" language="Python" />
+        <watch expression="tvec" language="Python" />
+        <watch expression="matRotacao" language="Python" />
+        <watch expression="verticies" language="Python" />
+        <watch expression="vecRotacao" language="Python" />
+        <watch expression="vecTranslacao" language="Python" />
+        <watch expression="M" language="Python" />
+        <watch expression="M" language="Python" />
+        <watch expression="gray" language="Python" />
+        <watch expression="M" language="Python" />
+        <watch expression="bool(glutInit)" language="Python" />
+        <watch expression="bool(glutInit)" language="Python" />
+        <watch expression="obj" language="Python" />
+        <watch expression="background" language="Python" />
+        <watch expression="background_id" language="Python" />
+        <watch expression="glGenTextures(0)" language="Python" />
+        <watch expression="glGenTextures" language="Python" />
+        <watch expression="glGenTextures(1)" language="Python" />
+        <watch expression="tamX" language="Python" />
+        <watch expression="FieldOfView" language="Python" />
+        <watch expression="aspect" language="Python" />
+        <watch expression="background_id" language="Python" />
+        <watch expression="count" language="Python" />
+        <watch expression="background" language="Python" />
+        <watch expression="width" language="Python" />
+        <watch expression="height" language="Python" />
+        <watch expression="glTexCoord2i(1,1)" language="Python" />
+        <watch expression="background_id" language="Python" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>
