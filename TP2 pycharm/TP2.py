@@ -170,6 +170,17 @@ def find_rectangle(approx,original,homografias):
             # print(approx)
     return approx,original, pontos
 
+
+
+def draw(img, corners, imgpts):
+    corner = tuple(corners[0].ravel())
+    img = cv2.line(img, corner, tuple(imgpts[0].ravel()), (255,0,0), 5)
+    img = cv2.line(img, corner, tuple(imgpts[1].ravel()), (0,255,0), 5)
+    img = cv2.line(img, corner, tuple(imgpts[2].ravel()), (0,0,255), 5)
+    return img
+
+
+
 def functionPnP(pontospnp, objectPoints, cameraMatrix, distCoeffs):
     matrizRotacao = []
     matrizTanslacao = []
@@ -177,13 +188,24 @@ def functionPnP(pontospnp, objectPoints, cameraMatrix, distCoeffs):
     for i in pontospnp:
         imagePoints = np.asarray(i)
         ret, rvec, tvec, = cv2.solvePnP(objectPoints.astype(float), imagePoints.astype(float), cameraMatrix, distCoeffs)
+
+        # axis = np.float32([[1, 0, 0], [0, 1, 0], [0, 0, -1]]).reshape(-1, 3)
+        # imgpts, jac = cv2.projectPoints(axis, rvec, tvec , cameraMatrix, distCoeffs)
+        #
+        # img = draw(frame,imagePoints,imgpts)
+        # cv2.imshow('img',img)
+
         rotm=cv2.Rodrigues(rvec)[0]
         matrizRotacao.append(rotm)
         matrizTanslacao.append(tvec)
-        matrizAuxiliar = np.transpose(np.array([[rotm[0][0],rotm[0][1],rotm[0][2],tvec[0]],
-                    [rotm[1][0],rotm[1][1],rotm[1][2],tvec[1]],
-                    [rotm[2][0],rotm[2][1],rotm[2][2],tvec[2]],
-                    [       0.0,       0.0,       0.0,   1.0]]))
+        # matrizAuxiliar = np.transpose(np.array([[rotm[0][0],rotm[0][1],rotm[0][2],tvec[0]],
+        #             [rotm[1][0],rotm[1][1],rotm[1][2],tvec[1]],
+        #             [rotm[2][0],rotm[2][1],rotm[2][2],tvec[2]],
+        #             [       0.0,       0.0,       0.0,   1.0]]))
+        matrizAuxiliar = np.array([[rotm[0][0], rotm[0][1], rotm[0][2], tvec[0]],
+                                                [rotm[1][0], rotm[1][1], rotm[1][2], tvec[1]],
+                                                [rotm[2][0], rotm[2][1], rotm[2][2], tvec[2]],
+                                                [0.0, 0.0, 0.0, 1.0]])
         m.append(matrizAuxiliar*np.array(
             [[1.0, 1.0, 1.0, 1.0],
              [-1.0, -1.0, -1.0, -1.0],
@@ -280,7 +302,7 @@ tamYalvo = alvo1.shape[0]   #salva tamanho do alvo em Y
 contaframes=0
 # framesCalibrar=[]
 
-
+contaRoda=0
 glutInit()
 glutInitWindowSize(cols, rows)
 glutCreateWindow("3D")
@@ -337,7 +359,7 @@ while (1):
 
     final, pontospnp = retorna_final(quinas, gray, final)
 
-    objectPoints=np.array([[-5,-5,0],[5,-5,0],[-5,5,0],[5,5,0]])
+    objectPoints=np.array([[-tamYalvo/2,-tamXalvo/2,0],[-tamYalvo/2,+tamXalvo/2,0],[+tamXalvo,+tamYalvo,0],[+tamXalvo,-tamYalvo,0]])
     matRotacao=[]
     vecTranslacao=[]
 
@@ -348,8 +370,8 @@ while (1):
     #print(np.shape(imageContours))
     #frame = cv2.drawContours(gray, imageContours, -1, (255, 255), 1)
     #frame = cv2.drawContours(frame, imageContours, -1, (0, 255, 0), 1)
-    # cv2.imshow('Contornos1', frame)
-    cv2.imshow('Contornos', final)
+    cv2.imshow('Contornos1', frame)
+    #cv2.imshow('Contornos', final)
     # cv2.imshow('Contornos2', original)
     # print(np.shape(img))
 
@@ -406,13 +428,21 @@ while (1):
     glDepthMask(GL_TRUE)
     glDisable(GL_TEXTURE_2D)
 
+    # glBegin()
     glMatrixMode(GL_MODELVIEW)
-    glLoadIdentity()
-    glTranslate(0, 0, - 20)
-    # glRotate(0, 1, 0, 0)
-    # glRotate(, 0, 1, 0)
+    glPushMatrix()
+    # glLoadIdentity()
+    glLoadMatrixf(M[0])
+    # glTranslate(0, 0, - 20)
+    # glRotatef(5, 60, 0, 1)
+    # glRotatef(10*contaRoda, 90, 30, 0)
+    contaRoda=contaRoda+2
     glCallList(obj.gl_list)
+    # glEnd()
+    # glFlush()
     glutSwapBuffers()
+    glPopMatrix()
+    # glutSwapBuffers()
 
     # for i in M:
     #     glMatrixMode(GL_MODELVIEW)
