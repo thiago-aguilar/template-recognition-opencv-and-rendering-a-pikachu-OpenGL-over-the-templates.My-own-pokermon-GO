@@ -179,21 +179,33 @@ def draw(img, corners, imgpts):
     img = cv2.line(img, corner, tuple(imgpts[2].ravel()), (0,0,255), 5)
     return img
 
+def normalize_rows(x: np.ndarray):
+    """
+    function that normalizes each row of the matrix x to have unit length.
 
+    Args:
+     ``x``: A numpy matrix of shape (n, m)
+
+    Returns:
+     ``x``: The normalized (by row) numpy matrix.
+    """
+    return x/np.linalg.norm(x, ord=2, axis=1, keepdims=True)
 
 def functionPnP(pontospnp, objectPoints, cameraMatrix, distCoeffs):
     matrizRotacao = []
     matrizTanslacao = []
     m=[]
     for i in pontospnp:
-        imagePoints = np.asarray(i)
+        imagePoints = np.asarray([i[0],i[3],i[2],i[1]])
         ret, rvec, tvec, = cv2.solvePnP(objectPoints.astype(float), imagePoints.astype(float), cameraMatrix, distCoeffs)
 
-        # axis = np.float32([[1, 0, 0], [0, 1, 0], [0, 0, -1]]).reshape(-1, 3)
-        # imgpts, jac = cv2.projectPoints(axis, rvec, tvec , cameraMatrix, distCoeffs)
-        #
-        # img = draw(frame,imagePoints,imgpts)
-        # cv2.imshow('img',img)
+        # tvec[2]=tvec[2]*-1
+        axis = np.float32([[1, 0, 0], [0, 1, 0], [0, 0, -1]]).reshape(-1, 3)
+        imgpts, jac = cv2.projectPoints(axis, rvec, tvec , cameraMatrix, distCoeffs)
+        imgpts=imgpts.astype(int)
+        img = draw(frame,imagePoints,imgpts)
+        cv2.imshow('img',img)
+        # tvec=tvec/cameraMatrix[0][0]
 
         rotm=cv2.Rodrigues(rvec)[0]
         matrizRotacao.append(rotm)
@@ -206,12 +218,19 @@ def functionPnP(pontospnp, objectPoints, cameraMatrix, distCoeffs):
                                                 [rotm[1][0], rotm[1][1], rotm[1][2], tvec[1]],
                                                 [rotm[2][0], rotm[2][1], rotm[2][2], tvec[2]],
                                                 [0.0, 0.0, 0.0, 1.0]])
-        m.append(matrizAuxiliar*np.array(
+
+        # matrizAuxiliar = np.array([[1.0, 0.0, 0.0, -20.0],
+        #                            [0.0, 1.0, 0.0, -30.0],
+        #                            [0.0, 0.0, 1.0, -50.0],
+        #                            [0.0, 0.0, 0.0, 1.0]])
+
+        matrizAuxiliar = matrizAuxiliar*np.array(
             [[1.0, 1.0, 1.0, 1.0],
              [-1.0, -1.0, -1.0, -1.0],
              [-1.0, -1.0, -1.0, -1.0],
              [1.0, 1.0, 1.0, 1.0]]
-        ))
+        )
+        m.append(matrizAuxiliar)
 
     return m, matrizRotacao, matrizTanslacao
 
@@ -240,7 +259,7 @@ def initOpenGL(cameraMatrix, dimensions):
     Fy= cameraMatrix[1,1]
     FieldOfView= 2*np.arctan(0.5*tamY/Fy)*180/np.pi
     aspect= (tamX*Fy)/(tamY*Fx)
-    gluPerspective(FieldOfView, aspect, 0.1, 100.0)
+    gluPerspective(FieldOfView, aspect, 0.1, 300.0)
     # gluLookAt(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
     glMatrixMode(GL_MODELVIEW)
 
@@ -359,8 +378,13 @@ while (1):
 
     final, pontospnp = retorna_final(quinas, gray, final)
 
-    objectPoints=np.array([[-tamYalvo/2,-tamXalvo/2,0],[-tamYalvo/2,+tamXalvo/2,0],[+tamXalvo,+tamYalvo,0],[+tamXalvo,-tamYalvo,0]])
+    # objectPoints=np.array([[+tamXalvo,+tamYalvo,0],[-tamYalvo/2,-tamXalvo/2,0],[-tamYalvo/2,+tamXalvo/2,0],,[+tamXalvo,-tamYalvo,0]])
+    # objectPoints = np.array( [[-tamXalvo/2, -tamYalvo/2, 0],[tamXalvo/2,-tamYalvo/2,0],[tamXalvo/2,tamYalvo/2,0],[-tamXalvo/2,tamYalvo/2,0]])
+    var=tamXalvo
+    objectPoints = np.array(
+        [[-var / 2,  -var/ 2, 0],[var / 2, -var / 2, 0],[var / 2, var/ 2, 0], [-var / 2, var / 2, 0]])
     matRotacao=[]
+
     vecTranslacao=[]
 
     M,matRotacao,vecTranslacao = functionPnP(pontospnp, objectPoints, cameraMatrix, distCoeffs)
@@ -370,7 +394,7 @@ while (1):
     #print(np.shape(imageContours))
     #frame = cv2.drawContours(gray, imageContours, -1, (255, 255), 1)
     #frame = cv2.drawContours(frame, imageContours, -1, (0, 255, 0), 1)
-    cv2.imshow('Contornos1', frame)
+    # cv2.imshow('Contornos1', frame)
     #cv2.imshow('Contornos', final)
     # cv2.imshow('Contornos2', original)
     # print(np.shape(img))
@@ -431,15 +455,15 @@ while (1):
     # glBegin()
     glMatrixMode(GL_MODELVIEW)
     glPushMatrix()
-    # glLoadIdentity()
+    glLoadIdentity()
     glLoadMatrixf(M[0])
     # glTranslate(0, 0, - 20)
     # glRotatef(5, 60, 0, 1)
-    # glRotatef(10*contaRoda, 90, 30, 0)
+    glRotatef(10*contaRoda, 90, 30, 0)
     contaRoda=contaRoda+2
     glCallList(obj.gl_list)
     # glEnd()
-    # glFlush()
+    glFlush()
     glutSwapBuffers()
     glPopMatrix()
     # glutSwapBuffers()
