@@ -36,6 +36,13 @@ def compara1(imageA, imageB):
 
     return err
 
+def dist_euclidiana(v1, v2):
+	dim, soma = len(v1), 0
+	for i in range(dim):
+		soma += math.pow(v1[i] - v2[i], 2)
+	return math.sqrt(soma)
+
+
 def  compara2(imageA, imageB):
     #implementando metodo CCORR
 
@@ -67,7 +74,7 @@ def retorna_final(homografias,gray,final):
             erro2m = compara1(im_dst, alvo2m)
             erro3m = compara1(im_dst, alvo3m)
             erro4m = compara1(im_dst, alvo4m)
-            if erro1m <= 10500 or erro2m <= 10500 or erro3m <= 10500 or erro4m <= 10500:
+            if erro1m <= 9500 or erro2m <= 9500 or erro3m <= 9500 or erro4m <= 9500:
                 i=espelha(i,erro1m,erro2m,erro3m,erro4m)
                 aux1 = np.array([[i[0][1], i[0][0]], [i[3][1], i[3][0]], [i[2][1], i[2][0]], [i[1][1], i[1][0]]])
                 aux2 = np.array([[0, 0], [0, tamXalvo], [tamYalvo, tamXalvo], [tamYalvo, 0]])
@@ -81,12 +88,12 @@ def retorna_final(homografias,gray,final):
                 # i=espelha(i)
 
 
-            if erro1 <= 10500:
+            if erro1 <= 9500:
                 final = cv2.line(final, (i[0][1], i[0][0]), (i[3][1], i[3][0]), (255, 0, 0), 2)
                 final = cv2.line(final, (i[3][1], i[3][0]), (i[2][1], i[2][0]), (0, 255, 0), 2)
                 final = cv2.line(final, (i[2][1], i[2][0]), (i[1][1], i[1][0]), (0, 0, 255), 2)
                 final = cv2.line(final, (i[1][1], i[1][0]), (i[0][1], i[0][0]), (255, 255, 0), 2)
-                pontosPnP.append([[i[0][1],i[0][0]],[i[3][1], i[3][0]],[i[2][1], i[2][0]],[i[1][1], i[1][0]]])
+                pontosPnP.append([[i[2][1], i[2][0]],[i[1][1], i[1][0]],[i[0][1],i[0][0]],[i[3][1], i[3][0]]])
             if erro2 <= 10500:
                 final = cv2.line(final, (i[0][1], i[0][0]), (i[3][1], i[3][0]), (255, 255, 0), 2)
                 final = cv2.line(final, (i[3][1], i[3][0]), (i[2][1], i[2][0]), (255, 0, 0), 2)
@@ -98,7 +105,7 @@ def retorna_final(homografias,gray,final):
                 final = cv2.line(final, (i[3][1], i[3][0]), (i[2][1], i[2][0]), (255, 255, 0), 2)
                 final = cv2.line(final, (i[2][1], i[2][0]), (i[1][1], i[1][0]), (255, 0, 0), 2)
                 final = cv2.line(final, (i[1][1], i[1][0]), (i[0][1], i[0][0]), (0, 255, 0), 2)
-                pontosPnP.append([[i[2][1], i[2][0]],[i[1][1], i[1][0]],[i[0][1],i[0][0]],[i[3][1], i[3][0]]])
+                pontosPnP.append([[i[0][1],i[0][0]],[i[3][1], i[3][0]],[i[2][1], i[2][0]],[i[1][1], i[1][0]]])
             if erro4 <= 10500:
                 final = cv2.line(final, (i[0][1], i[0][0]), (i[3][1], i[3][0]), (0, 255, 0), 2)
                 final = cv2.line(final, (i[3][1], i[3][0]), (i[2][1], i[2][0]), (0, 0, 255), 2)
@@ -196,17 +203,16 @@ def functionPnP(pontospnp, objectPoints, cameraMatrix, distCoeffs):
     matrizTanslacao = []
     m=[]
     for i in pontospnp:
-        imagePoints = np.asarray([i[0],i[3],i[2],i[1]])
+        imagePoints = np.asarray([i[0],i[1],i[2],i[3]])
         ret, rvec, tvec, = cv2.solvePnP(objectPoints.astype(float), imagePoints.astype(float), cameraMatrix, distCoeffs)
 
         # tvec[2]=tvec[2]*-1
-        axis = np.float32([[1, 0, 0], [0, 1, 0], [0, 0, -1]]).reshape(-1, 3)
-        imgpts, jac = cv2.projectPoints(axis, rvec, tvec , cameraMatrix, distCoeffs)
-        imgpts=imgpts.astype(int)
-        img = draw(frame,imagePoints,imgpts)
-        cv2.imshow('img',img)
-        # tvec=tvec/cameraMatrix[0][0]
-
+        # axis = np.float32([[1, 0, 0], [0, 1, 0], [0, 0, -1]]).reshape(-1, 3)
+        # imgpts, jac = cv2.projectPoints(axis, rvec, tvec , cameraMatrix, distCoeffs)
+        # imgpts=imgpts.astype(int)
+        # img = draw(frame,imagePoints,imgpts)
+        # cv2.imshow('img',img)
+        tvec=tvec/math.sqrt((cameraMatrix[0][0]*cameraMatrix[0][0]+cameraMatrix[1][1]*cameraMatrix[1][1])*0.05)
         rotm=cv2.Rodrigues(rvec)[0]
         matrizRotacao.append(rotm)
         matrizTanslacao.append(tvec)
@@ -329,6 +335,10 @@ glutCreateWindow("3D")
 glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB)
 glClearColor(0.0, 0.0, 0.0, 0.0)
 obj, background_id= initOpenGL(cameraMatrix,(cols,rows))
+contapnpsAtual=[]
+guardapnps=[]
+contaframes=0
+intervaloFrame=10
 while (1):
     contaframes+=1
     # reads frames from a camera
@@ -339,7 +349,7 @@ while (1):
     original = np.copy(frame)
     final = np.copy(original)
 
-    mask1= cv2.Canny(frame,150,280)
+    mask1= cv2.Canny(frame,150,200)
     imageContours, contours =  cv2.findContours(mask1,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     # cv2.imshow('Video', frame)
 
@@ -382,12 +392,56 @@ while (1):
     # objectPoints = np.array( [[-tamXalvo/2, -tamYalvo/2, 0],[tamXalvo/2,-tamYalvo/2,0],[tamXalvo/2,tamYalvo/2,0],[-tamXalvo/2,tamYalvo/2,0]])
     var=tamXalvo
     objectPoints = np.array(
-        [[-var / 2,  -var/ 2, 0],[var / 2, -var / 2, 0],[var / 2, var/ 2, 0], [-var / 2, var / 2, 0]])
+        [[var / 2, var/ 2, 0], [-var / 2, var / 2, 0],[-var / 2,  -var/ 2, 0],[var / 2, -var / 2, 0]])
+    # objectPoints = np.array(
+    #     [[0, 0, 0], [0, var, 0], [var , var , 0], [var , 0, 0]])
     matRotacao=[]
 
     vecTranslacao=[]
 
-    M,matRotacao,vecTranslacao = functionPnP(pontospnp, objectPoints, cameraMatrix, distCoeffs)
+    pontospnp2=[]
+    if len(pontospnp)!=0: pontospnp2.append(pontospnp[0])
+
+    for i in pontospnp:
+        for j in i:
+            for k in pontospnp2:
+                for y in k:
+                    if dist_euclidiana(j, y) < 5: flag = 0
+        if flag == 1:
+            pontospnp2.append(i)
+        else:
+            flag = 1
+
+    if contaframes<intervaloFrame: contapnpsAtual.append(len(pontospnp2))
+    else :
+        contapnpsAtual.append(len(pontospnp2))
+        contapnpsAtual.pop(0)
+
+    if len(pontospnp2)== max(contapnpsAtual):
+        guardapnps=[]
+        for i in pontospnp2:
+            guardapnps.append(i)
+    else:
+        for i in guardapnps:
+            if i in pontospnp2:
+                a=0
+            else:
+                pontospnp2.append(i)
+
+    pontospnp3 = []
+    if len(pontospnp2) != 0: pontospnp3.append(pontospnp2[0])
+
+    for i in pontospnp2:
+        for j in i:
+            for k in pontospnp3:
+                for y in k:
+                    if dist_euclidiana(j, y) < 5: flag = 0
+        if flag == 1:
+            pontospnp3.append(i)
+        else:
+            flag = 1
+
+    M,matRotacao,vecTranslacao = functionPnP(pontospnp3, objectPoints, cameraMatrix, distCoeffs)
 
     # for i in
 
@@ -395,11 +449,12 @@ while (1):
     #frame = cv2.drawContours(gray, imageContours, -1, (255, 255), 1)
     #frame = cv2.drawContours(frame, imageContours, -1, (0, 255, 0), 1)
     # cv2.imshow('Contornos1', frame)
-    #cv2.imshow('Contornos', final)
+    # cv2.imshow('Contornos', final)
     # cv2.imshow('Contornos2', original)
     # print(np.shape(img))
 
     #-------------INICIO-DO-OPENGL---------------------
+
     background = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     background = cv2.flip(background,0)
     # cv2.imshow('Contornos2', background)
@@ -452,20 +507,25 @@ while (1):
     glDepthMask(GL_TRUE)
     glDisable(GL_TEXTURE_2D)
 
-    # glBegin()
-    glMatrixMode(GL_MODELVIEW)
-    glPushMatrix()
-    glLoadIdentity()
-    glLoadMatrixf(M[0])
-    # glTranslate(0, 0, - 20)
-    # glRotatef(5, 60, 0, 1)
-    glRotatef(10*contaRoda, 90, 30, 0)
-    contaRoda=contaRoda+2
-    glCallList(obj.gl_list)
-    # glEnd()
-    glFlush()
-    glutSwapBuffers()
-    glPopMatrix()
+
+    for i in M:
+        # glBegin()
+        glMatrixMode(GL_MODELVIEW)
+        glPushMatrix()
+        glLoadIdentity()
+        glLoadMatrixf(np.transpose(i))
+        mult = 5
+        # glTranslate(aux1*mult, -aux2*mult, -aux3*mult)
+        # glRotatef(5, 60, 0, 1)
+        # glRotatef(10*contaRoda, 90, 30, 0)
+        contaRoda = contaRoda + 2
+        glCallList(obj.gl_list)
+        # glEnd()
+        glFlush()
+        glutSwapBuffers()
+        glPopMatrix()
+
+
     # glutSwapBuffers()
 
     # for i in M:

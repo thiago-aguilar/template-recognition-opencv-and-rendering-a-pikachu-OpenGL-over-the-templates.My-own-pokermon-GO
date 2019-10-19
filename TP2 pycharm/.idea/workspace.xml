@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0d7567d6-eccc-4e99-99c9-23c406e2a556" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/TP2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/TP2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TP2.py" beforeDir="false" afterPath="$PROJECT_DIR$/TP2.py" afterDir="false" />
     </list>
@@ -131,7 +128,25 @@
       <option name="presentableId" value="Default" />
       <updated>1570580072046</updated>
     </task>
+    <task id="LOCAL-00001" summary="commit sabado a tarde, falta ajustar pnp">
+      <created>1571510343947</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1571510343947</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -144,6 +159,10 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="commit sabado a tarde, falta ajustar pnp" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit sabado a tarde, falta ajustar pnp" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -151,16 +170,6 @@
           <url>file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py</url>
           <line>13</line>
           <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/TP2.py</url>
-          <line>226</line>
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/TP2.py</url>
-          <line>458</line>
-          <option name="timeStamp" value="36" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -344,6 +353,42 @@
         <watch expression="imgpts" language="Python" />
         <watch expression="tvec" language="Python" />
         <watch expression="M[0]" language="Python" />
+        <watch expression="FieldOfView" language="Python" />
+        <watch expression="aspect" language="Python" />
+        <watch expression="tvec" language="Python" />
+        <watch expression="matrizAuxiliar" language="Python" />
+        <watch expression="tvec" language="Python" />
+        <watch expression="aux1" language="Python" />
+        <watch expression="matrizAuxiliar" language="Python" />
+        <watch expression="pontospnp" language="Python" />
+        <watch expression="i" language="Python" />
+        <watch expression="j" language="Python" />
+        <watch expression="pontospnp" language="Python" />
+        <watch expression="pontospnp" language="Python" />
+        <watch expression="frame" language="Python" />
+        <watch expression="[[i[3][1], i[3][0]],[i[2][1], i[2][0]],[i[1][1], i[1][0]],[i[0][1],i[0][0]]]" language="Python" />
+        <watch expression="[[i[1][1], i[1][0]],[i[0][1],i[0][0]],[i[3][1], i[3][0]],[i[2][1], i[2][0]]]" language="Python" />
+        <watch expression="[[i[1][1], i[1][0]],[i[0][1],i[0][0]],[i[3][1], i[3][0]],[i[2][1], i[2][0]]]" language="Python" />
+        <watch expression="[[i[0][1],i[0][0]],[i[3][1], i[3][0]],[i[2][1], i[2][0]],[i[1][1], i[1][0]]]" language="Python" />
+        <watch expression="[[i[3][1], i[3][0]],[i[2][1], i[2][0]],[i[1][1], i[1][0]],[i[0][1],i[0][0]]]" language="Python" />
+        <watch expression="[[i[1][1], i[1][0]],[i[0][1],i[0][0]],[i[3][1], i[3][0]],[i[2][1], i[2][0]]]" language="Python" />
+        <watch expression="[[i[2][1], i[2][0]],[i[1][1], i[1][0]],[i[0][1],i[0][0]],[i[3][1], i[3][0]]]" language="Python" />
+        <watch expression="[[i[2][1], i[2][0]],[i[1][1], i[1][0]],[i[0][1],i[0][0]],[i[3][1], i[3][0]]]" language="Python" />
+        <watch expression="pontospnp" language="Python" />
+        <watch expression="pontospnp" language="Python" />
+        <watch expression="pontospnp" language="Python" />
+        <watch expression="tvec" language="Python" />
+        <watch expression="matrizRotacao" language="Python" />
+        <watch expression="matRotacao" language="Python" />
+        <watch expression="pontospnp" language="Python" />
+        <watch expression="rotm" language="Python" />
+        <watch expression="guarapnps" language="Python" />
+        <watch expression="guardapnps" language="Python" />
+        <watch expression="contapnpsAtual" language="Python" />
+        <watch expression="i" language="Python" />
+        <watch expression="pontospnp2" language="Python" />
+        <watch expression="guardapnps" language="Python" />
+        <watch expression="pontospnp2" language="Python" />
       </configuration>
     </watches-manager>
   </component>
