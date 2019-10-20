@@ -169,8 +169,8 @@ def find_rectangle(approx,original,homografias):
         x = approx.ravel()[0]
         y = approx.ravel()[1]
         if len(approx) == 4:
-            cv2.putText(original, "Rectangle", (x, y), cv2.FONT_HERSHEY_COMPLEX, 1, (0))
-            cv2.drawContours(original, [approx], -1, (0, 255, 255), 1)
+            # cv2.putText(original, "Rectangle", (x, y), cv2.FONT_HERSHEY_COMPLEX, 1, (0))
+            # cv2.drawContours(original, [approx], -1, (0, 255, 255), 1)
             # cv2.imshow('Contornos', original)
             pontos.append([approx[0][0],approx[1][0],approx[2][0],approx[3][0]])
             # print("pontos")
@@ -212,7 +212,7 @@ def functionPnP(pontospnp, objectPoints, cameraMatrix, distCoeffs):
         # imgpts=imgpts.astype(int)
         # img = draw(frame,imagePoints,imgpts)
         # cv2.imshow('img',img)
-        tvec=tvec/math.sqrt((cameraMatrix[0][0]*cameraMatrix[0][0]+cameraMatrix[1][1]*cameraMatrix[1][1])*0.05)
+        tvec=tvec/math.sqrt((cameraMatrix[0][0]*cameraMatrix[0][0]+cameraMatrix[1][1]*cameraMatrix[1][1])*0.035)
         rotm=cv2.Rodrigues(rvec)[0]
         matrizRotacao.append(rotm)
         matrizTanslacao.append(tvec)
@@ -239,6 +239,7 @@ def functionPnP(pontospnp, objectPoints, cameraMatrix, distCoeffs):
         m.append(matrizAuxiliar)
 
     return m, matrizRotacao, matrizTanslacao
+
 
 
 def initOpenGL(cameraMatrix, dimensions):
@@ -287,8 +288,11 @@ def initOpenGL(cameraMatrix, dimensions):
 #
 # Note: The numerical errors are approximately three times the standard deviations (for reference).
 #------------------------------------------------------------------------------------------------------------------------
-cameraMatrix= np.array([[568.45087,0,312.86352],[0,563.55473,207.41694],[0,0,1]])
-distCoeffs=np.array([ 0.10977 ,  -0.29957 ,  -0.00915  , -0.00096 , 0.00000 ])
+# cameraMatrix= np.array([[568.45087,0,312.86352],[0,563.55473,207.41694],[0,0,1]])
+# distCoeffs=np.array([ 0.10977 ,  -0.29957 ,  -0.00915  , -0.00096 , 0.00000 ])
+
+cameraMatrix= np.array([[548.45087,0,312.86352],[0,536.62930,225.41694],[0,0,1]])
+distCoeffs=np.array([ 0.06835  , -0.11194  , -0.00436  , -0.00248 , 0.00000 ])
 
 
 #---------------------------MAIN CODE-----------------------------------------------------------------------------------
@@ -327,18 +331,19 @@ tamYalvo = alvo1.shape[0]   #salva tamanho do alvo em Y
 contaframes=0
 # framesCalibrar=[]
 
+para=0
 contaRoda=0
 glutInit()
 glutInitWindowSize(cols, rows)
-glutCreateWindow("3D")
-
+glutCreateWindow("TP2-Thiago_Borges & Guilherme Leles")
 glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB)
 glClearColor(0.0, 0.0, 0.0, 0.0)
 obj, background_id= initOpenGL(cameraMatrix,(cols,rows))
 contapnpsAtual=[]
 guardapnps=[]
 contaframes=0
-intervaloFrame=10
+intervaloFrame=8
+s=0
 while (1):
     contaframes+=1
     # reads frames from a camera
@@ -349,14 +354,14 @@ while (1):
     original = np.copy(frame)
     final = np.copy(original)
 
-    mask1= cv2.Canny(frame,150,200)
+    mask1= cv2.Canny(frame,200,300)
     imageContours, contours =  cv2.findContours(mask1,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     # cv2.imshow('Video', frame)
 
 
     k = cv2.waitKey(5) & 0xFF   #se pressionar esc sai da rotina
 
-    if k == 27:
+    if k == 27 or s==1:
         break
     # print(np.shape(imageContours))
 
@@ -391,11 +396,13 @@ while (1):
     # objectPoints=np.array([[+tamXalvo,+tamYalvo,0],[-tamYalvo/2,-tamXalvo/2,0],[-tamYalvo/2,+tamXalvo/2,0],,[+tamXalvo,-tamYalvo,0]])
     # objectPoints = np.array( [[-tamXalvo/2, -tamYalvo/2, 0],[tamXalvo/2,-tamYalvo/2,0],[tamXalvo/2,tamYalvo/2,0],[-tamXalvo/2,tamYalvo/2,0]])
     var=tamXalvo
+    # tamYalvo+=20
     objectPoints = np.array(
-        [[var / 2, var/ 2, 0], [-var / 2, var / 2, 0],[-var / 2,  -var/ 2, 0],[var / 2, -var / 2, 0]])
+        [[tamXalvo / 2, tamYalvo/ 2, 0], [-tamXalvo / 2, tamYalvo / 2, 0],[-tamXalvo / 2,  -tamYalvo/ 2, 0],[tamXalvo / 2, -tamYalvo / 2, 0]])
     # objectPoints = np.array(
     #     [[0, 0, 0], [0, var, 0], [var , var , 0], [var , 0, 0]])
     matRotacao=[]
+    tamYalvo=tamXalvo
 
     vecTranslacao=[]
 
@@ -441,6 +448,7 @@ while (1):
         else:
             flag = 1
 
+
     M,matRotacao,vecTranslacao = functionPnP(pontospnp3, objectPoints, cameraMatrix, distCoeffs)
 
     # for i in
@@ -456,12 +464,11 @@ while (1):
     #-------------INICIO-DO-OPENGL---------------------
 
     background = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    background = cv2.flip(background,0)
+    background = cv2.flip(background, 0)
     # cv2.imshow('Contornos2', background)
     height, width, channels = background.shape
-    background= np.fromstring(background.tostring(), background.dtype, height * width * channels)
+    background = np.fromstring(background.tostring(), background.dtype, height * width * channels)
     background.shape = (height, width, channels)
-
 
     glEnable(GL_TEXTURE_2D)
 
@@ -473,7 +480,6 @@ while (1):
     # glActiveTexture(GL_TEXTURE0)
 
     glGenerateMipmap(GL_TEXTURE_2D)
-
 
     # glDepthMask(GL_FALSE)
 
