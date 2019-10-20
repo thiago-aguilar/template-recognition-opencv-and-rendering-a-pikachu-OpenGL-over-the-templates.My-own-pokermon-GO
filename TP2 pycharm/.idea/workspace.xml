@@ -142,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571526786634</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="commit sabado a noite, centralizou melhor, falta consertar os mergulhos do pikachu">
+      <created>1571534741110</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1571534741110</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -169,7 +176,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="commit sabado a tarde, falta ajustar pnp" />
     <MESSAGE value="commit sabado a noite, trabalho praticamente pronto, falta centralizar o pikachu" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit sabado a noite, trabalho praticamente pronto, falta centralizar o pikachu" />
+    <MESSAGE value="commit sabado a noite, centralizou melhor, falta consertar os mergulhos do pikachu" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit sabado a noite, centralizou melhor, falta consertar os mergulhos do pikachu" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -181,58 +189,133 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TP2.py</url>
-          <line>347</line>
-          <option name="timeStamp" value="88" />
+          <line>466</line>
+          <option name="timeStamp" value="108" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TP2.py</url>
-          <line>372</line>
-          <option name="timeStamp" value="89" />
+          <line>467</line>
+          <option name="timeStamp" value="109" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TP2.py</url>
-          <line>397</line>
-          <option name="timeStamp" value="90" />
+          <line>469</line>
+          <option name="timeStamp" value="110" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TP2.py</url>
-          <line>408</line>
-          <option name="timeStamp" value="91" />
+          <line>471</line>
+          <option name="timeStamp" value="111" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TP2.py</url>
-          <line>426</line>
-          <option name="timeStamp" value="92" />
+          <line>470</line>
+          <option name="timeStamp" value="112" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TP2.py</url>
-          <line>447</line>
-          <option name="timeStamp" value="93" />
+          <line>473</line>
+          <option name="timeStamp" value="113" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TP2.py</url>
-          <line>468</line>
-          <option name="timeStamp" value="94" />
+          <line>475</line>
+          <option name="timeStamp" value="114" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TP2.py</url>
-          <line>515</line>
-          <option name="timeStamp" value="96" />
+          <line>477</line>
+          <option name="timeStamp" value="115" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TP2.py</url>
+          <line>478</line>
+          <option name="timeStamp" value="116" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TP2.py</url>
           <line>479</line>
-          <option name="timeStamp" value="97" />
+          <option name="timeStamp" value="117" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TP2.py</url>
-          <line>490</line>
-          <option name="timeStamp" value="98" />
+          <line>482</line>
+          <option name="timeStamp" value="118" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TP2.py</url>
-          <line>503</line>
-          <option name="timeStamp" value="99" />
+          <line>488</line>
+          <option name="timeStamp" value="119" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TP2.py</url>
+          <line>510</line>
+          <option name="timeStamp" value="126" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TP2.py</url>
+          <line>511</line>
+          <option name="timeStamp" value="127" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TP2.py</url>
+          <line>513</line>
+          <option name="timeStamp" value="128" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TP2.py</url>
+          <line>519</line>
+          <option name="timeStamp" value="129" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TP2.py</url>
+          <line>520</line>
+          <option name="timeStamp" value="130" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TP2.py</url>
+          <line>522</line>
+          <option name="timeStamp" value="131" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TP2.py</url>
+          <line>523</line>
+          <option name="timeStamp" value="132" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TP2.py</url>
+          <line>521</line>
+          <option name="timeStamp" value="133" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TP2.py</url>
+          <line>527</line>
+          <option name="timeStamp" value="134" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TP2.py</url>
+          <line>528</line>
+          <option name="timeStamp" value="135" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TP2.py</url>
+          <line>531</line>
+          <option name="timeStamp" value="136" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TP2.py</url>
+          <line>532</line>
+          <option name="timeStamp" value="137" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TP2.py</url>
+          <line>530</line>
+          <option name="timeStamp" value="138" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TP2.py</url>
+          <line>495</line>
+          <option name="timeStamp" value="139" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -453,6 +536,8 @@
         <watch expression="guardapnps" language="Python" />
         <watch expression="pontospnp2" language="Python" />
         <watch expression="mediaPosicoes" language="Python" />
+        <watch expression="pontospnp3" language="Python" />
+        <watch expression="matRotacao" language="Python" />
         <watch expression="pontospnp3" language="Python" />
       </configuration>
     </watches-manager>

@@ -450,6 +450,7 @@ while (1):
 
 
     M,matRotacao,vecTranslacao = functionPnP(pontospnp3, objectPoints, cameraMatrix, distCoeffs)
+    matRotacao
 
     # for i in
 
@@ -457,7 +458,7 @@ while (1):
     #frame = cv2.drawContours(gray, imageContours, -1, (255, 255), 1)
     #frame = cv2.drawContours(frame, imageContours, -1, (0, 255, 0), 1)
     # cv2.imshow('Contornos1', frame)
-    # cv2.imshow('Contornos', final)
+    cv2.imshow('Contornos', final)
     # cv2.imshow('Contornos2', original)
     # print(np.shape(img))
 
